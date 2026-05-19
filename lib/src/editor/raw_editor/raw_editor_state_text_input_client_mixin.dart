@@ -373,6 +373,17 @@ mixin RawEditorStateTextInputClientMixin on EditorState
   }
 
   @override
+  bool onFocusReceived() {
+    if (mounted &&
+        !widget.config.focusNode.hasFocus &&
+        widget.config.focusNode.canRequestFocus) {
+      widget.config.focusNode.requestFocus();
+      return true;
+    }
+    return false;
+  }
+
+  @override
   void connectionClosed() {
     if (!hasConnection) {
       return;
